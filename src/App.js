@@ -1,23 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useState } from "react";
+import "./css/App.css";
+import { Map } from "./comps/Map.js";
+//import { Chart } from "./comps/Chart.js";
+import { Chart } from "./comps/d3Chart.js";
+import { Slider } from "./comps/Slider.js";
+import { Page } from "./comps/Page.js";
+import { Printprops } from "./comps/Prints";
+import { keys } from "./comps/helper.js";
 
-function App() {
+import { ActiveWeekLabel, myLineContext } from "./comps/RefDot.tsx";
+
+function App(props) {
+  //console.log(props);
+  const [dateIndex, setdateIndex] = useState(
+    Math.floor(props.app_data.length / 2)
+  );
+
+  let app_props = {
+    app_data: props.app_data,
+    dateIndex: dateIndex,
+    var_key: keys(2),
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <Page />
+      </div>
+      <div>
+        <div className="dateslider">
+          <input
+            type="range"
+            min={0}
+            max={props.app_data.length - 1}
+            value={dateIndex}
+            className="slider"
+            id="dateSlider"
+            onChange={(e) => setdateIndex(e.target.value)}
+          ></input>
+        </div>
+
+        <div className="wrapper">
+          <div className="map">
+            <Map {...app_props} />
+          </div>
+          <div className="print">
+            <Printprops {...app_props} />
+          </div>
+          <div className="chart">
+            <Chart {...app_props} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
