@@ -71,21 +71,6 @@ export function Chart(props) {
         return y(d.y);
       });
 
-    /*     var point = svg
-      .selectAll("point")
-      .data(plot_data[props.dateIndex])
-      .enter()
-      .append("circle")
-      .attr("fill", "black")
-
-      .attr("cx", function (d) {
-        return x(d.x);
-      })
-      .attr("cy", function (d) {
-        return y(d.y);
-      })
-      .attr("r", 3); */
-
     svg
       .append("path")
       .data([plot_data])
