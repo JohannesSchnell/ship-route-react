@@ -5,27 +5,6 @@ import * as d3 from "d3";
 
 // https://blog.scottlogic.com/2020/05/01/rendering-one-million-points-with-d3.html
 
-/* function data_create(props) {
-  return props.app_data.map((item) => {
-    return {
-      x: item[props.var_key.date_key],
-      y: item[props.var_key.var1_key],
-    };
-  });
-}
-
-export function Chart(props) {
-  const plot_data = data_create(props);
-  console.log(plot_data);
-  const LineChart = rd3.createLineChart;
-  return (
-    <div>
-      <LineChart data={plot_data} />
-    </div>
-  );
-}
- */
-
 //https://github.com/paulho1973/react-d3-linechart/blob/master/src/App.js
 
 export function Chart(props) {
@@ -53,9 +32,7 @@ export function Chart(props) {
 
     // append the svg object to the body of the page
     var svg = d3
-      //wählt html element body
       .select("body")
-      // fügt in <body> <svg width heigth > hinzu
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -70,12 +47,12 @@ export function Chart(props) {
         return d.x;
       })
     );
-    y.domain([
-      -17,
-      d3.max(plot_data, (d) => {
+
+    y.domain(
+      d3.extent(plot_data, (d) => {
         return d.y;
-      }),
-    ]);
+      })
+    );
 
     svg
       .append("g")
@@ -118,11 +95,9 @@ export function Chart(props) {
       .attr("stroke-width", 1.5)
       .attr("d", valueLine);
 
-    console.log(plot_data[props.dateIndex]);
-
     svg
-      .append("circle")
-      .select("circle")
+      .append("g")
+      .selectAll("dot")
       .data(plot_data[props.dateIndex])
       .enter()
       .append("circle")
@@ -130,19 +105,9 @@ export function Chart(props) {
       .attr("cx", (d) => x(d.x))
       .attr("cy", (d) => y(d.y))
       .attr("r", 30);
-    console.log(svg.data());
-    /* svg
-      .append("path")
-      .data([plot_data])
-      .attr("class", "line")
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 1.5)
-      .attr("d", point); */
   }
 
   useEffect(() => {
-    console.log("in effect");
     createGraph(props);
   }, []);
   return <></>;
