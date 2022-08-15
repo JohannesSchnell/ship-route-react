@@ -19,7 +19,7 @@ function App(props) {
   let app_props = {
     app_data: props.app_data,
     dateIndex: dateIndex,
-    var_key: keys(2),
+    var_key: keys(1),
   };
 
   return (

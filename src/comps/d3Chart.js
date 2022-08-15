@@ -33,9 +33,9 @@ export function Chart(props) {
     //console.log(props);
     return props.app_data.map((item) => {
       //carl: 31.03.2020 11:21
-      let dateboi = "%d.%m.%Y %H:%M";
+      //let dateboi = "%d.%m.%Y %H:%M";
       //somali: 2022-04-17
-      //let dateboi = "%Y-%m-%d";
+      let dateboi = "%Y-%m-%d";
       return {
         x: d3.timeParse(dateboi)(item[props.var_key.date_key]),
         y: item[props.var_key.var1_key],
@@ -119,6 +119,7 @@ export function Chart(props) {
       .attr("d", valueLine);
 
     console.log(plot_data[props.dateIndex]);
+
     svg
       .append("circle")
       .select("circle")

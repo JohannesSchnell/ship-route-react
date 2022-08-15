@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { iterateOverJSON, makeData } from "./comps/helper.js";
-import { jsonData } from "./data/data_carl.js";
+import { jsonData } from "./data/data.js";
 
 const app_data = iterateOverJSON(jsonData.features);
 //const windspd = makeData(app_data, "wind");
