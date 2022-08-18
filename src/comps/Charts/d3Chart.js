@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import rd3 from "react-d3-library";
 
 import * as d3 from "d3";
+import { svg } from "d3";
 
 // https://blog.scottlogic.com/2020/05/01/rendering-one-million-points-with-d3.html
 
@@ -83,17 +84,31 @@ export function Chart(props) {
     svg
       .append("g")
       .selectAll("dot")
-      .data(plot_data[props.dateIndex])
-      .enter()
-      .append("circle")
-      .attr("fill", "black")
-      .attr("cx", (d) => x(d.x))
-      .attr("cy", (d) => y(d.y))
-      .attr("r", 30);
+      .data([plot_data[props.dateIndex]])
+      //join anschauen
+      .join(
+        function (enter) {
+          return (
+            enter
+              //.enter()
+              .append("circle")
+              .attr("fill", "red")
+              .attr("r", 5)
+              .attr("cx", (d) => x(d.x))
+              .attr("cy", (d) => y(d.y))
+          );
+        },
+
+        function (update) {
+          return update.attr("cx", (d) => x(d.x)).attr("cy", (d) => y(d.y));
+        }
+      );
+
+    return svg;
   }
 
   useEffect(() => {
     createGraph(props);
-  }, []);
+  }, [props.dateIndex]);
   return <></>;
 }

@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -105,8 +107,8 @@
   float:left 
 }
 .chart{
-  padding-left: 5%;
-float: left;
+  padding-right: 15%;
+float: right;
 }
 
 .prinOutput{

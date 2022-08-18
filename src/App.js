@@ -1,8 +1,7 @@
 import { React, useState } from "react";
 import "./css/App.css";
 import { Map } from "./comps/Map.js";
-//import { Chart } from "./comps/Chart.js";
-import { Chart } from "./comps/d3Chart.js";
+import { Chart } from "./comps/Charts/visChart.js";
 import { Slider } from "./comps/Slider.js";
 import { Page } from "./comps/Page.js";
 import { Printprops } from "./comps/Prints";
@@ -18,10 +17,11 @@ function App(props) {
 
   let app_props = {
     app_data: props.app_data,
+    plotData: props.plotData,
     dateIndex: dateIndex,
-    var_key: keys(1),
+    var_key: keys(2),
   };
-
+  //console.log(app_props);
   return (
     <div>
       <div>
