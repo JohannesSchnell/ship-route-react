@@ -26,7 +26,7 @@ export function makeData(app_data, key) {
   return arr;
 }
 
-export function getPoints(features, key) {
+export function getPoints(features) {
   let points = [];
   /*   for (let i = 0; i < features.length; i++) {
     let feature = features[i];
@@ -34,10 +34,12 @@ export function getPoints(features, key) {
       L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0])
     );
   } */
-
-  for (let ele of features) {
-    points.push(L.latLng(ele[key.lat_key], ele[key.lon_key]));
+  console.log("features : ", features["3"].lat);
+  for (let ele in features) {
+    //console.log("ele", ele);
+    points.push(L.latLng(features[ele].lat, features[ele].lng));
   }
+  console.log("points", points);
   return points;
 }
 

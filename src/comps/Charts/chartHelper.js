@@ -23,8 +23,17 @@ export function dataCreate(props, lib) {
   });
 }
 
-export function subSample(data, size) {
-  let arr = [];
+export function subSample(
+  data,
+  size,
+  dateboi,
+  date_key,
+  var_key,
+  lat_key,
+  lon_key
+) {
+  let plotArr = [];
+  let latlng = [];
   function avg(x) {
     let res = 0;
     for (let i = 0; i < x.length; i++) {
@@ -36,12 +45,18 @@ export function subSample(data, size) {
   for (let i = wing; i < data.length - wing; i += wing + 1) {
     let subSet = data.slice(i - wing, i + wing);
 
-    arr.push({
-      x: data[i].x,
-      //lat: data[i].lat,
-      //lng: data[i].lon,
-      y: avg(subSet.map((item) => item.y)),
+    plotArr.push({
+      x: d3.timeParse(dateboi)(data[i][date_key]),
+      y: avg(subSet.map((item) => item[var_key])),
+    });
+
+    latlng.push({
+      lat: data[i][lat_key],
+      lng: data[i][lon_key],
     });
   }
-  return arr;
+  return {
+    plotData: plotArr,
+    mapData: latlng,
+  };
 }

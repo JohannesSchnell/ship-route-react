@@ -1,0 +1,15 @@
+export const keyButtner = {
+  index_key: "field_1",
+  date_key: "Date.Time..UTC.",
+  lat_key: "Latitude",
+  lng_key: "Longitude",
+  var1_key: "pH.value.wash.water.EGC.Tower.inlet",
+  var2_key: "Turbidity.wash.water.EGC.Tower.inlet",
+  var3_key: "PAH.value.wash.water.EGC.Tower.inlet",
+  var4_key: "PAH.value.wash.water.EGC.Tower.inlet.corr.",
+  var5_key: "Temp..wash.water.EGC.Tower.inlet",
+  var6_key: "Load.E1",
+  var7_key: "Load.E2",
+  var8_key: "Load.E3",
+  var9_key: "Load.E4",
+};

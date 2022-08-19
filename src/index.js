@@ -2,22 +2,27 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import { Select } from "./comps/Select";
 import reportWebVitals from "./reportWebVitals";
 import { iterateOverJSON, makeData } from "./comps/helper.js";
 import { jsonData } from "./data/data_carl.js";
 
-export const app_data = iterateOverJSON(jsonData.features);
-//const windspd = makeData(app_data, "wind");
-//console.log(app_data);
+//data import später fetch
+const app_data = iterateOverJSON(jsonData.features);
+
+//data reduction
 
 let data = {
-  app_data: app_data,
+  appData: app_data,
 };
+
+console.log(data);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App {...data} />
+    <Select {...data} />
+    {/* <App {...data} /> */}
   </React.StrictMode>
 );
 

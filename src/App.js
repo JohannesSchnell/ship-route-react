@@ -14,14 +14,13 @@ function App(props) {
   const [dateIndex, setdateIndex] = useState(
     Math.floor(props.app_data.length / 2)
   );
-
   let app_props = {
     app_data: props.app_data,
     plotData: props.plotData,
     dateIndex: dateIndex,
     var_key: keys(2),
   };
-  //console.log(app_props);
+  console.log(app_props);
   return (
     <div>
       <div>

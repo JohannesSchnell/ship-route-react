@@ -1,5 +1,6 @@
-import { interpolateWarm } from "d3";
-import { dataCreate, subSample } from "./chartHelper";
+import React from "react";
+import { Map } from "../Map";
+
 import {
   XYPlot,
   LineSeries,
@@ -15,7 +16,7 @@ import {
 //<link rel="stylesheet" href="https://unpkg.com/react-vis/dist/style.css">
 
 export function Chart(props) {
-  //console.log(props);
+  console.log(props);
   /*   let plotData = props.app_data.map((item) => {
     return {
       x: item.field_1,
@@ -31,18 +32,23 @@ export function Chart(props) {
   let index = Math.floor(
     (plotData.length * props.dateIndex) / props.app_data.length
   ); */
-  let plotData = 1;
-  console.log(plotData);
+
+  //console.log(plotData);
   return (
     <div>
-      <XYPlot height={400} width={600}>
-        <VerticalGridLines />
-        <HorizontalGridLines />
-        <XAxis />
-        <YAxis />
-        <LineSeries data={plotData} />
-        <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} />
-      </XYPlot>
+      <div>
+        <XYPlot height={400} width={600}>
+          <VerticalGridLines />
+          <HorizontalGridLines />
+          <XAxis />
+          <YAxis />
+          <LineSeries data={props.plotData} />
+          {/* <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} /> */}
+        </XYPlot>
+      </div>
+      <div>
+        <Map {...props.mapData} />
+      </div>
     </div>
   );
 }

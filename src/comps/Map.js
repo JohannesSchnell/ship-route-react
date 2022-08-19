@@ -25,9 +25,9 @@ export function Map(props) {
     iconSize: [32, 32], // size of the icon
     iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
   });
-
-  const points = getPoints(props.app_data, props.var_key);
-  //console.log(points);
+  console.log("map props", props);
+  const points = getPoints(props);
+  console.log(points[100]);
 
   //const map = useMap();
 
@@ -35,7 +35,7 @@ export function Map(props) {
     <div>
       <div>
         <MapContainer
-          center={points[props.dateIndex]}
+          center={[119.897666666667, 32.1251666666667]}
           zoom={2}
           scrollWheelZoom={true}
         >
@@ -46,12 +46,12 @@ export function Map(props) {
           />
 
           <Marker
-            key={props.app_data[props.dateIndex][props.var_key.map_key]}
-            position={points[props.dateIndex]}
-            icon={shipIcon}
+          // key={props.app_data[props.dateIndex][props.var_key.map_key]}
+          // position={points[props.dateIndex]}
+          // icon={shipIcon}
           />
 
-          <Polyline key={props.dateIndex} positions={points} color="red" />
+          <Polyline positions={points} color="red" />
         </MapContainer>
       </div>
     </div>
