@@ -27,26 +27,30 @@ export function Map(props) {
   });
   console.log("map props", props);
   const points = getPoints(props);
-  console.log(points[100]);
+  console.log(points);
 
   //const map = useMap();
 
   return (
     <div>
       <div>
-        <MapContainer center={points[100]} zoom={2} scrollWheelZoom={true}>
+        <MapContainer
+          center={points[Math.floor(points.length / 2)]}
+          zoom={2}
+          scrollWheelZoom={true}
+        >
           <TileLayer
             attribution='&copy; 
       <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          <Marker
-          // key={props.app_data[props.dateIndex][props.var_key.map_key]}
-          // position={points[props.dateIndex]}
-          // icon={shipIcon}
+          {/*           <Marker
+           key={props.app_data[props.dateIndex][props.var_key.map_key]}
+          position={points[props.dateIndex]}
+          icon={shipIcon}
           />
-
+ */}
           <Polyline positions={points} color="red" />
         </MapContainer>
       </div>

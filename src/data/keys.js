@@ -1,8 +1,8 @@
 export const keyButtner = {
   index_key: "field_1",
   date_key: "Date.Time..UTC.",
-  lat_key: "Latitude",
-  lng_key: "Longitude",
+  lat_key: "Longitude",
+  lng_key: "Latitude",
   var1_key: "pH.value.wash.water.EGC.Tower.inlet",
   var2_key: "Turbidity.wash.water.EGC.Tower.inlet",
   var3_key: "PAH.value.wash.water.EGC.Tower.inlet",

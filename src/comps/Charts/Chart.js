@@ -37,6 +37,9 @@ export function Chart(props) {
   return (
     <div>
       <div>
+        <Map {...props.mapData} />
+      </div>
+      <div>
         <XYPlot height={400} width={600}>
           <VerticalGridLines />
           <HorizontalGridLines />
@@ -45,9 +48,6 @@ export function Chart(props) {
           <LineSeries data={props.plotData} />
           {/* <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} /> */}
         </XYPlot>
-      </div>
-      <div>
-        <Map {...props.mapData} />
       </div>
     </div>
   );

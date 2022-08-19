@@ -9,10 +9,10 @@ import { subSample } from "./Charts/chartHelper";
 export function Select(props) {
   const selectData = subSample(
     props.appData,
-    25,
+    100,
     "%d.%m.%Y %H:%M",
     keyS.date_key,
-    keyS.var3_key,
+    keyS.var5_key,
     keyS.lat_key,
     keyS.lng_key
   );
