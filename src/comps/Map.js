@@ -34,11 +34,7 @@ export function Map(props) {
   return (
     <div>
       <div>
-        <MapContainer
-          center={[119.897666666667, 32.1251666666667]}
-          zoom={2}
-          scrollWheelZoom={true}
-        >
+        <MapContainer center={points[100]} zoom={2} scrollWheelZoom={true}>
           <TileLayer
             attribution='&copy; 
       <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

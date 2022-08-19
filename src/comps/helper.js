@@ -37,7 +37,7 @@ export function getPoints(features) {
   console.log("features : ", features["3"].lat);
   for (let ele in features) {
     //console.log("ele", ele);
-    points.push(L.latLng(features[ele].lat, features[ele].lng));
+    points.push([L.latLng(features[ele].lat, features[ele].lng)]);
   }
   console.log("points", points);
   return points;
