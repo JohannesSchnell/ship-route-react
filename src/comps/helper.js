@@ -38,6 +38,8 @@ export function getPoints(features, key) {
   for (let ele of features) {
     points.push(L.latLng(ele[key.lat_key], ele[key.lon_key]));
   }
+
+  console.log("points", points[1]);
   return points;
 }
 
