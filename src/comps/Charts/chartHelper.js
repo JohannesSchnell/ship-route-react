@@ -28,12 +28,15 @@ export function subSample(
   size,
   dateboi,
   date_key,
-  var_key,
+  var_keys,
   lat_key,
   lon_key
 ) {
   let plotArr = [];
+  let plotObj = {};
   let latlng = [];
+  let dateArr = [];
+
   function avg(x) {
     let res = 0;
     for (let i = 0; i < x.length; i++) {
@@ -41,22 +44,34 @@ export function subSample(
     }
     return res / x.length;
   }
+
   let wing = Math.floor(size / 2);
+  for (let varX of var_keys) {
+    for (let i = wing; i < data.length - wing; i += wing + 1) {
+      let subSet = data.slice(i - wing, i + wing);
+      plotArr.push(avg(subSet.map((item) => item[varX])));
+    }
+    plotObj[varX] = plotArr;
+    plotArr = [];
+    //console.log("ss", plotObj, wing);
+  }
+
   for (let i = wing; i < data.length - wing; i += wing + 1) {
-    let subSet = data.slice(i - wing, i + wing);
-
-    plotArr.push({
-      x: d3.timeParse(dateboi)(data[i][date_key]),
-      y: avg(subSet.map((item) => item[var_key])),
-    });
-
     latlng.push({
       lat: data[i][lat_key],
       lng: data[i][lon_key],
     });
   }
+  //console.log(latlng);
+
+  for (let i = wing; i < data.length - wing; i += wing + 1) {
+    dateArr.push(d3.timeParse(dateboi)(data[i][date_key]));
+  }
+  //console.log(dateArr);
+
   return {
-    plotData: plotArr,
     mapData: latlng,
+    dateData: dateArr,
+    varData: plotObj,
   };
 }

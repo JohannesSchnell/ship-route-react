@@ -10,10 +10,22 @@ import {
   HorizontalGridLines,
   XAxis,
   YAxis,
+  ContinuousSizeLegend,
 } from "react-vis";
 
+import { keyButtner as keyS } from "../../data/keys";
+import { color } from "d3";
+console.log(keyS);
 //benötigt
 //<link rel="stylesheet" href="https://unpkg.com/react-vis/dist/style.css">
+
+function createPlotData(dateData, varData, var_key) {
+  let plotArr = [];
+  for (let i in varData[var_key]) {
+    plotArr.push({ x: dateData[i], y: varData[var_key][i] });
+  }
+  return plotArr;
+}
 
 export function Chart(props) {
   console.log(props);
@@ -40,12 +52,50 @@ export function Chart(props) {
         <Map {...props.mapData} />
       </div>
       <div>
-        <XYPlot height={400} width={600}>
+        <XYPlot height={600} width={800}>
           <VerticalGridLines />
           <HorizontalGridLines />
           <XAxis />
           <YAxis />
-          <LineSeries data={props.plotData} />
+          <ContinuousSizeLegend endTitle={"los"} startTitle={"stop"} />
+          <LineSeries
+            data={createPlotData(props.dateData, props.varData, keyS.var3_key)}
+            color={"red"}
+          />
+          <LineSeries
+            data={createPlotData(props.dateData, props.varData, keyS.var4_key)}
+          />
+          <LineSeries
+            data={createPlotData(props.dateData, props.varData, keyS.var5_key)}
+          />
+
+          <LineSeries
+            data={createPlotData(props.dateData, props.varData, keyS.var1_key)}
+          />
+          {/* <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} /> */}
+        </XYPlot>
+      </div>
+      <div>
+        <XYPlot height={600} width={800}>
+          <VerticalGridLines />
+          <HorizontalGridLines />
+          <XAxis />
+          <YAxis />
+          <ContinuousSizeLegend endTitle={"los"} startTitle={"stop"} />
+          <LineSeries
+            data={createPlotData(props.dateData, props.varData, keyS.var6_key)}
+            color={"red"}
+          />
+          <LineSeries
+            data={createPlotData(props.dateData, props.varData, keyS.var7_key)}
+          />
+          <LineSeries
+            data={createPlotData(props.dateData, props.varData, keyS.var8_key)}
+          />
+
+          <LineSeries
+            data={createPlotData(props.dateData, props.varData, keyS.var9_key)}
+          />
           {/* <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} /> */}
         </XYPlot>
       </div>
