@@ -8,9 +8,11 @@ import {
   useMapEvent,
 } from "react-leaflet";
 import L, { Class } from "leaflet";
+import { closest } from "leaflet-geometryutil";
 import "leaflet/dist/leaflet.css";
 
 import { getPoints } from "./helper.js";
+import { index } from "d3";
 
 //
 //https://react-leaflet.js.org/docs/api-map/#usemapevent
@@ -24,12 +26,26 @@ const RecenterAutomatically = ({ position }) => {
   return null;
 };
 
-function returnIndex({ points }) {
-  const map = useMapEvent("click", (b) => {
-    const mapIndex = L.GeometryUtil.closest(map, points, b);
-    console.log(mapIndex);
+function getIndexByDist({ pointArray }, point) {
+  console.log({ pointArray });
+  const distArray = [];
+  for (let i = 0; i < pointArray.length; i++) {
+    const dist = Math.sqrt(
+      (pointArray[i].lat - point.lat) ** 2 +
+        (pointArray[i].lng - point.lng) ** 2
+    );
+
+    distArray.push(dist);
+  }
+  console.log(distArray);
+  const index = distArray.indexOf(Math.min(...distArray));
+  return index;
+}
+
+function ReturnIndex(pointArray) {
+  const map = useMapEvent("click", (e) => {
+    console.log(getIndexByDist(pointArray, e.latlng));
   });
-  return mapIndex;
 }
 
 export function Map(props) {
@@ -69,8 +85,18 @@ export function Map(props) {
           <Marker position={points[props.dateIndex]} icon={shipIcon} />
           <RecenterAutomatically position={points[props.dateIndex]} />
 
-          <Polyline positions={points} color="red" />
-          <returnIndex points={points} />
+          <Polyline
+            positions={points}
+            color="red"
+            eventHandlers={{
+              click: (e) => {
+                console.log(e);
+                const index = getIndexByDist(e.target._latlngs, e.latlng);
+                console.log(index);
+              },
+            }}
+          />
+          <ReturnIndex pointArray={points} />
         </MapContainer>
       </div>
     </div>
