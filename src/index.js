@@ -16,7 +16,7 @@ let data = {
   appData: app_data,
 };
 
-console.log(data);
+//console.log(data);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { Map } from "../Map";
 
 import {
@@ -10,12 +10,15 @@ import {
   HorizontalGridLines,
   XAxis,
   YAxis,
-  ContinuousSizeLegend,
+  Crosshair,
+  DiscreteColorLegend,
 } from "react-vis";
 
 import { keyButtner as keyS } from "../../data/keys";
 import { color } from "d3";
-console.log(keyS);
+import { Printprops } from "../Prints";
+
+//console.log(keyS);
 //benötigt
 //<link rel="stylesheet" href="https://unpkg.com/react-vis/dist/style.css">
 
@@ -28,7 +31,7 @@ function createPlotData(dateData, varData, var_key) {
 }
 
 export function Chart(props) {
-  console.log(props);
+  //console.log(props);
   /*   let plotData = props.app_data.map((item) => {
     return {
       x: item.field_1,
@@ -46,19 +49,35 @@ export function Chart(props) {
   ); */
 
   //console.log(plotData);
+
+  const [dateIndex, setdateIndex] = useState(
+    Math.floor(props.dateData.length / 2)
+  );
+  //console.log(    createPlotData(props.dateData, props.varData, keyS.var4_key)[dateIndex]  );
+  //const [vertLine, setvertLine] = useState([]);
+  const mapProps = {
+    mapData: props.mapData,
+    dateIndex: dateIndex,
+  };
+
+  const printProps = {
+    printProps: props.varData,
+    dateIndex: dateIndex,
+  };
   return (
     <div>
       <div>
-        <Map {...props.mapData} />
+        <Map {...mapProps} />
       </div>
       <div>
-        <XYPlot height={600} width={800}>
+        <XYPlot height={200} width={1200}>
           <VerticalGridLines />
           <HorizontalGridLines />
           <XAxis />
           <YAxis />
-          <ContinuousSizeLegend endTitle={"los"} startTitle={"stop"} />
+
           <LineSeries
+            onNearestX={(datapoint, { index }) => setdateIndex(index)}
             data={createPlotData(props.dateData, props.varData, keyS.var3_key)}
             color={"red"}
           />
@@ -73,16 +92,34 @@ export function Chart(props) {
             data={createPlotData(props.dateData, props.varData, keyS.var1_key)}
           />
           {/* <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} /> */}
+          <Crosshair
+            values={[
+              //createPlotData(props.dateData, props.varData, keyS.var4_key)
+              { x: props.dateData[dateIndex], y: 0 },
+            ]}
+            style={{
+              line: {
+                width: "1px",
+                color: "black",
+                stroke: "black",
+              },
+            }}
+          >
+            {/* Divs inside Crosshair Component required to prevent value box render */}
+            <div className="crosshairoRonaldo">
+              <p></p>
+            </div>
+          </Crosshair>
         </XYPlot>
-      </div>
-      <div>
-        <XYPlot height={600} width={800}>
+
+        <XYPlot height={200} width={1200}>
           <VerticalGridLines />
           <HorizontalGridLines />
           <XAxis />
           <YAxis />
-          <ContinuousSizeLegend endTitle={"los"} startTitle={"stop"} />
+
           <LineSeries
+            onNearestX={(datapoint, { index }) => setdateIndex(index)}
             data={createPlotData(props.dateData, props.varData, keyS.var6_key)}
             color={"red"}
           />
@@ -97,6 +134,15 @@ export function Chart(props) {
             data={createPlotData(props.dateData, props.varData, keyS.var9_key)}
           />
           {/* <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} /> */}
+          <Crosshair
+            values={[
+              //createPlotData(props.dateData, props.varData, keyS.var4_key)
+              { x: props.dateData[dateIndex], y: 0 },
+            ]}
+          >
+            {/* Divs inside Crosshair Component required to prevent value box render */}
+            <div className="crosshairoRonaldo"></div>
+          </Crosshair>
         </XYPlot>
       </div>
     </div>

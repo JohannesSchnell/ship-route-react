@@ -62,8 +62,8 @@
 
 .leaflet-container {
   padding-top: 15px;
-  width: 600px;
-  height: 400px;
+  width: 1200px;
+  height: 600px;
 }
 
 .footer {
@@ -97,9 +97,10 @@
   overflow: auto;
 }
 .map {
-
-  overflow: auto;
-  float:left; 
+ height: 600px;
+ width:1200px;
+ overflow: auto;
+ float:left; 
 }
 .print {
 
@@ -113,4 +114,10 @@ float: right;
 
 .prinOutput{
   font-size: medium;
+}
+
+.crosshairoRonaldo{
+  stroke: "black";
+  fill: "black";
+  color: "black";
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Chart } from "./Charts/Chart";
+import { Chart } from "./Charts/Chart.js";
 //wird im interface vom user erstellt oder bei bereinigten Daten liegt er schon vor
 import { keyButtner as keyS } from "../data/keys";
 
@@ -9,7 +9,7 @@ import { subSample } from "./Charts/chartHelper";
 export function Select(props) {
   const selectData = subSample(
     props.appData,
-    25,
+    26,
     "%d.%m.%Y %H:%M",
     keyS.date_key,
     [
