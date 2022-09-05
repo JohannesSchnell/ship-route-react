@@ -1,4 +1,9 @@
 import { React, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+
+import { updateState } from "../../state/indexSlice";
+
 import { Map } from "../Map";
 
 import {
@@ -16,7 +21,7 @@ import {
 
 import { keyButtner as keyS } from "../../data/keys";
 import { color } from "d3";
-import { Printprops } from "../Prints";
+import { Printprops } from "../oldies/Prints";
 
 //console.log(keyS);
 //benötigt
@@ -50,25 +55,25 @@ export function Chart(props) {
 
   //console.log(plotData);
 
-  const [dateIndex, setdateIndex] = useState(
+  /*   const [dateIndex, setdateIndex] = useState(
     Math.floor(props.dateData.length / 2)
-  );
+  ); */
   //console.log(    createPlotData(props.dateData, props.varData, keyS.var4_key)[dateIndex]  );
   //const [vertLine, setvertLine] = useState([]);
-  const mapProps = {
+  /*   const mapProps = {
     mapData: props.mapData,
     dateIndex: dateIndex,
-  };
+  }; */
 
-  const printProps = {
+  const dateIndex = useSelector((state) => state.index.value);
+  const dispatch = useDispatch();
+
+  /*   const printProps = {
     printProps: props.varData,
     dateIndex: dateIndex,
-  };
+  }; */
   return (
     <div>
-      <div>
-        <Map {...mapProps} />
-      </div>
       <div>
         <XYPlot height={200} width={1200}>
           <VerticalGridLines />
@@ -77,7 +82,9 @@ export function Chart(props) {
           <YAxis />
 
           <LineSeries
-            onNearestX={(datapoint, { index }) => setdateIndex(index)}
+            onNearestX={(datapoint, { index }) =>
+              dispatch(updateState(Number(index)))
+            }
             data={createPlotData(props.dateData, props.varData, keyS.var3_key)}
             color={"red"}
           />
@@ -119,7 +126,9 @@ export function Chart(props) {
           <YAxis />
 
           <LineSeries
-            onNearestX={(datapoint, { index }) => setdateIndex(index)}
+            onNearestX={(datapoint, { index }) =>
+              dispatch(updateState(Number(index)))
+            }
             data={createPlotData(props.dateData, props.varData, keyS.var6_key)}
             color={"red"}
           />

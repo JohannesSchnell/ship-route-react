@@ -1,6 +1,6 @@
 import { React, useState } from "react";
-import { Chart } from "./Charts/Chart";
-import { Map } from "./Map.js";
+import { Chart } from "../Charts/Chart";
+import { Map } from "../Map.js";
 
 export function State(props) {
   const [dateIndex, setdateIndex] = useState(

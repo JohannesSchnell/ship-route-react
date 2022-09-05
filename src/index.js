@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import App from "./comps/oldies/App";
 import { Select } from "./comps/Select";
-import reportWebVitals from "./reportWebVitals";
+
 import { iterateOverJSON, makeData } from "./comps/helper.js";
 import { jsonData } from "./data/data_carl.js";
+
+import store from "./state/store";
+import { Provider } from "react-redux";
 
 //data import später fetch
 const app_data = iterateOverJSON(jsonData.features);
@@ -15,18 +18,16 @@ const app_data = iterateOverJSON(jsonData.features);
 let data = {
   appData: app_data,
 };
-
+const dataLength = data.length;
+export { dataLength };
 //console.log(data);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Select {...data} />
-    {/* <App {...data} /> */}
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <Select {...data} />
+      {/* <App {...data} /> */}
+    </React.StrictMode>
+  </Provider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

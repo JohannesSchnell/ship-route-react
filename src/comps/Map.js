@@ -12,11 +12,16 @@ import { closest } from "leaflet-geometryutil";
 import "leaflet/dist/leaflet.css";
 
 import { getPoints } from "./helper.js";
-import { index } from "d3";
+import { dispatch, index } from "d3";
+
+import { useSelector, useDispatch } from "react-redux";
+import { updateState } from "../state/indexSlice.js";
 
 //
 //https://react-leaflet.js.org/docs/api-map/#usemapevent
 //
+
+const i = 500;
 
 const RecenterAutomatically = ({ position }) => {
   const map = useMap();
@@ -26,8 +31,10 @@ const RecenterAutomatically = ({ position }) => {
   return null;
 };
 
-function getIndexByDist({ pointArray }, point) {
-  console.log({ pointArray });
+//adjust {} for using in Return index(click somewhere except the polyline)
+//or within PolyLine for a click on the line
+function getIndexByDist(pointArray, point) {
+  //console.log({ pointArray });
   const distArray = [];
   for (let i = 0; i < pointArray.length; i++) {
     const dist = Math.sqrt(
@@ -37,18 +44,25 @@ function getIndexByDist({ pointArray }, point) {
 
     distArray.push(dist);
   }
-  console.log(distArray);
+  //console.log(distArray);
   const index = distArray.indexOf(Math.min(...distArray));
+  console.log(index);
   return index;
 }
 
 function ReturnIndex(pointArray) {
   const map = useMapEvent("click", (e) => {
+    dispatch(updateState(Number(getIndexByDist(pointArray, e.latlng))));
     console.log(getIndexByDist(pointArray, e.latlng));
   });
 }
 
 export function Map(props) {
+  //console.log(props);
+
+  const dateIndex = useSelector((state) => state.index.value);
+  const dispatch = useDispatch();
+
   delete L.Icon.Default.prototype._getIconUrl;
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
@@ -63,7 +77,7 @@ export function Map(props) {
     iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
   });
   //console.log("map props", props);
-  const points = getPoints(props.mapData);
+  const points = getPoints(props);
   //console.log(points);
 
   //const map = useMap();
@@ -72,7 +86,7 @@ export function Map(props) {
     <div>
       <div>
         <MapContainer
-          center={points[props.dateIndex]}
+          center={points[dateIndex]}
           zoom={2}
           scrollWheelZoom={true}
         >
@@ -82,21 +96,26 @@ export function Map(props) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          <Marker position={points[props.dateIndex]} icon={shipIcon} />
-          <RecenterAutomatically position={points[props.dateIndex]} />
+          <Marker position={points[dateIndex]} icon={shipIcon} />
+          <RecenterAutomatically position={points[dateIndex]} />
 
           <Polyline
             positions={points}
             color="red"
             eventHandlers={{
               click: (e) => {
+                dispatch(
+                  updateState(
+                    Number(getIndexByDist(e.target._latlngs, e.latlng))
+                  )
+                );
                 console.log(e);
                 const index = getIndexByDist(e.target._latlngs, e.latlng);
                 console.log(index);
               },
             }}
           />
-          <ReturnIndex pointArray={points} />
+          {/* <ReturnIndex pointArray={points} /> */}
         </MapContainer>
       </div>
     </div>

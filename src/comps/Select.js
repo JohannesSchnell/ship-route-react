@@ -1,5 +1,6 @@
 import React from "react";
 import { Chart } from "./Charts/Chart.js";
+import { Map } from "./Map";
 //wird im interface vom user erstellt oder bei bereinigten Daten liegt er schon vor
 import { keyButtner as keyS } from "../data/keys";
 
@@ -29,7 +30,12 @@ export function Select(props) {
   console.log(selectData);
   return (
     <div>
-      <Chart {...selectData} />
+      <div>
+        <Map {...selectData.mapData} />
+      </div>
+      <div>
+        <Chart {...selectData.plotData} />
+      </div>
     </div>
   );
 }

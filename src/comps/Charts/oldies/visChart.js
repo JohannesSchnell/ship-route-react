@@ -1,5 +1,5 @@
 import { interpolateWarm } from "d3";
-import { dataCreate, subSample } from "./chartHelper";
+import { dataCreate, subSample } from "../chartHelper";
 import {
   XYPlot,
   LineSeries,

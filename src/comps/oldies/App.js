@@ -1,13 +1,13 @@
 import { React, useState } from "react";
-import "./css/App.css";
-import { Map } from "./comps/Map.js";
-import { Chart } from "./comps/Charts/visChart.js";
-import { Slider } from "./comps/Slider.js";
-import { Page } from "./comps/Page.js";
-import { Printprops } from "./comps/Prints";
-import { keys } from "./comps/helper.js";
+import "../../css/App.css";
+import { Map } from "../Map.js";
+import { Chart } from "../Charts/oldies/visChart.js";
+import { Slider } from "./Slider.js";
+import { Page } from "./Page.js";
+import { Printprops } from "./Prints";
+import { keys } from "../helper.js";
 
-import { ActiveWeekLabel, myLineContext } from "./comps/RefDot.tsx";
+//import { ActiveWeekLabel, myLineContext } from "./comps/oldies/RefDot.tsx";
 
 function App(props) {
   //console.log(props);

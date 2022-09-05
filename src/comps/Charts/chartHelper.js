@@ -71,7 +71,6 @@ export function subSample(
 
   return {
     mapData: latlng,
-    dateData: dateArr,
-    varData: plotObj,
+    plotData: { dateData: dateArr, varData: plotObj },
   };
 }
