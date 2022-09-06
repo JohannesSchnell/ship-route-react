@@ -1,10 +1,11 @@
 import React from "react";
-import { Chart } from "./Charts/Chart.js";
-import { Map } from "./Map";
+import { Chart } from "./Chart/Chart.js";
+import { Map } from "./Map/Map.js";
+import { Control } from "./Control/Control.js";
 //wird im interface vom user erstellt oder bei bereinigten Daten liegt er schon vor
 import { keyButtner as keyS } from "../data/keys";
 
-import { subSample } from "./Charts/chartHelper";
+import { subSample } from "./helper";
 
 //data reduction von user oder automatisch? -benötigt keyS
 export function Select(props) {
@@ -28,8 +29,12 @@ export function Select(props) {
     keyS.lng_key
   );
   console.log(selectData);
+
   return (
     <div>
+      <div>
+        <Control />
+      </div>
       <div>
         <Map {...selectData.mapData} />
       </div>

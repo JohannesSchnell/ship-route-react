@@ -1,29 +1,20 @@
-import { React, useState } from "react";
+import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-
-import { updateState } from "../../state/indexSlice";
-
-import { Map } from "../Map";
+import { updateState } from "../state/indexSlice";
 
 import {
   XYPlot,
   LineSeries,
-  VerticalBarSeries,
-  MarkSeries,
   VerticalGridLines,
   HorizontalGridLines,
   XAxis,
   YAxis,
   Crosshair,
-  DiscreteColorLegend,
 } from "react-vis";
 
 import { keyButtner as keyS } from "../../data/keys";
-import { color } from "d3";
-import { Printprops } from "../oldies/Prints";
 
-//console.log(keyS);
 //benötigt
 //<link rel="stylesheet" href="https://unpkg.com/react-vis/dist/style.css">
 
@@ -36,42 +27,9 @@ function createPlotData(dateData, varData, var_key) {
 }
 
 export function Chart(props) {
-  //console.log(props);
-  /*   let plotData = props.app_data.map((item) => {
-    return {
-      x: item.field_1,
-      y: item.wind,
-    };
-  }); */
-
-  //console.log(plotData);
-  //let plotData = dataCreate(props, "d3");
-  /*   console.log(plDa);
-  let plotData = subSample(plDa, 25, props.var_key.var1_key);
-  console.log(plotData);
-  let index = Math.floor(
-    (plotData.length * props.dateIndex) / props.app_data.length
-  ); */
-
-  //console.log(plotData);
-
-  /*   const [dateIndex, setdateIndex] = useState(
-    Math.floor(props.dateData.length / 2)
-  ); */
-  //console.log(    createPlotData(props.dateData, props.varData, keyS.var4_key)[dateIndex]  );
-  //const [vertLine, setvertLine] = useState([]);
-  /*   const mapProps = {
-    mapData: props.mapData,
-    dateIndex: dateIndex,
-  }; */
-
   const dateIndex = useSelector((state) => state.index.value);
   const dispatch = useDispatch();
 
-  /*   const printProps = {
-    printProps: props.varData,
-    dateIndex: dateIndex,
-  }; */
   return (
     <div>
       <div>
@@ -98,12 +56,9 @@ export function Chart(props) {
           <LineSeries
             data={createPlotData(props.dateData, props.varData, keyS.var1_key)}
           />
-          {/* <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} /> */}
+
           <Crosshair
-            values={[
-              //createPlotData(props.dateData, props.varData, keyS.var4_key)
-              { x: props.dateData[dateIndex], y: 0 },
-            ]}
+            values={[{ x: props.dateData[dateIndex], y: 0 }]}
             style={{
               line: {
                 width: "1px",
@@ -142,13 +97,8 @@ export function Chart(props) {
           <LineSeries
             data={createPlotData(props.dateData, props.varData, keyS.var9_key)}
           />
-          {/* <MarkSeries data={[plotData[props.dateIndex]]} color={"red"} /> */}
-          <Crosshair
-            values={[
-              //createPlotData(props.dateData, props.varData, keyS.var4_key)
-              { x: props.dateData[dateIndex], y: 0 },
-            ]}
-          >
+
+          <Crosshair values={[{ x: props.dateData[dateIndex], y: 0 }]}>
             {/* Divs inside Crosshair Component required to prevent value box render */}
             <div className="crosshairoRonaldo"></div>
           </Crosshair>

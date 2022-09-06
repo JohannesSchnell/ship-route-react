@@ -1,4 +1,5 @@
 import L, { Class } from "leaflet";
+import * as d3 from "d3";
 
 function just_every(n, data) {
   let arr = [];
@@ -28,18 +29,9 @@ export function makeData(app_data, key) {
 
 export function getPoints(features) {
   let points = [];
-  /*   for (let i = 0; i < features.length; i++) {
-    let feature = features[i];
-    points.push(
-      L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0])
-    );
-  } */
-  //console.log("features : ", features["3"].lat);
   for (let ele in features) {
-    //console.log("ele", ele);
     points.push(L.latLng(features[ele].lat, features[ele].lng));
   }
-  //console.log("points", points);
   return points;
 }
 
@@ -66,4 +58,53 @@ export function keys(x) {
       lon_key: "Latitude",
     };
   }
+}
+
+export function subSample(
+  data,
+  size,
+  dateboi,
+  date_key,
+  var_keys,
+  lat_key,
+  lon_key
+) {
+  let plotArr = [];
+  let plotObj = {};
+  let latlng = [];
+  let dateArr = [];
+
+  function avg(x) {
+    let res = 0;
+    for (let i = 0; i < x.length; i++) {
+      res += x[i];
+    }
+    return res / x.length;
+  }
+
+  let wing = Math.floor(size / 2);
+  for (let varX of var_keys) {
+    for (let i = wing; i < data.length - wing; i += wing + 1) {
+      let subSet = data.slice(i - wing, i + wing);
+      plotArr.push(avg(subSet.map((item) => item[varX])));
+    }
+    plotObj[varX] = plotArr;
+    plotArr = [];
+  }
+
+  for (let i = wing; i < data.length - wing; i += wing + 1) {
+    latlng.push({
+      lat: data[i][lat_key],
+      lng: data[i][lon_key],
+    });
+  }
+
+  for (let i = wing; i < data.length - wing; i += wing + 1) {
+    dateArr.push(d3.timeParse(dateboi)(data[i][date_key]));
+  }
+
+  return {
+    mapData: latlng,
+    plotData: { dateData: dateArr, varData: plotObj },
+  };
 }
