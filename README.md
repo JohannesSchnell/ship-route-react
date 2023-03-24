@@ -9,4 +9,4 @@
 
 ## preprocess the data
 
-use `preprocess.R` to transform original data to be read by the app requires ==rgdal== package
+use `preprocess.R` to transform original data to be read by the app. Requires <mark>rgdal</mark> package
