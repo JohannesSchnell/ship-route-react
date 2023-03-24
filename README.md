@@ -9,4 +9,5 @@
 
 ## preprocess the data
 
-use `preprocess.R` to transform original data to be read by the app. Requires <mark>rgdal</mark> package
+- use `preprocess.R` to transform original data to be read by the app. Requires **rgdal** package
+- reference it in index.js acordingly
