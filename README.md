@@ -1,5 +1,5 @@
 # setup
 
 - clone the repository
-- switch to 'redux' branch `git checkout redux´
+- switch to 'redux' `git checkout redux`
 -
