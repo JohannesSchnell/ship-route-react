@@ -3,7 +3,7 @@ getwd()
 setwd("")
 #define import file 
 data = read.csv("./import.csv", sep = ";", dec = ",")
-data = read.csv("./Caribic-EGCS data/Ship_4-1-March2020-July2020.csv", sep = ";", dec = ",")
+
 
 #seperate coordinates in: degree minute hemisphere
 lat = strsplit(data$Latitude, " ")
@@ -42,4 +42,4 @@ geojson = readLines("./tmp/out.GeoJSON")
 writeLines(paste("export const jsonData = ", geojson), "./data/preprocessed.js")
 
 #write as csv 
-#write.csv(data, "carl_buettner.csv")
+#write.csv(data, "data.csv")
